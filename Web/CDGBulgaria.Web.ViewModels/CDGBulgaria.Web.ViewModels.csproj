@@ -1,0 +1,13 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.2</TargetFramework>
+    <CopyRefAssembliesToPublishDirectory>true</CopyRefAssembliesToPublishDirectory>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Services\CDGBulgaria.Services.Mapping\CDGBulgaria.Services.Mapping.csproj" />
+    <ProjectReference Include="..\..\Services\CDGBulgaria.Services.Models\CDGBulgaria.Services.Models.csproj" />
+  </ItemGroup>
+
+</Project>

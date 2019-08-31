@@ -1,0 +1,53 @@
+﻿@using CDGBulgaria.Web.ViewModels.CDGDisease
+@model CDGBulgaria.Web.InputModels.CDGDisease.CDGDiseaseEditInputModel
+
+@{
+	ViewData["Title"] = "Edit";
+	Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2 class="text-info text-center">Edit CDGDiseaseInfo</h2>
+<hr class="hr-2 bg-primary w-50">
+<form class=" mx-auto width w-50" asp-action="Edit">
+	<div asp-validation-summary="ModelOnly" class="text-danger"></div>
+	<div class="form-group">
+		<label asp-for="Name" class="control-label text-primary"></label>
+		<input asp-for="Name" class="form-control text-center" placeholder="Name..." />
+		<span asp-validation-for="Name" class="text-danger"></span>
+	</div>
+	<div class="form-group">
+		<label asp-for="Description" class="control-label text-primary"></label>
+		<textarea asp-for="Description" class="form-control text-center" placeholder="Description..."></textarea>
+		<span asp-validation-for="Description" class="text-danger"></span>
+	</div>
+	<div class="form-group mx-auto">
+		<div class="d-flex justify-content-center">
+			<label asp-for="CDGDiseaseType" class="text-primary h5">CDGDisease Type</label>
+		</div>
+		<select class="form-control text-primary" id="type" asp-for="CDGDiseaseType">
+			<option selected disabled>--- Select CDGDisease Type ---</option>
+			@foreach (var type in (IEnumerable<CDGDiseaseCreateCDGDiseaseTypeViewModel>)this.ViewData["types"])
+			{
+				@if (type.Name == Model.CDGDiseaseType)
+				{
+					<option value="@type.Name" selected>@type.Name</option>
+				}
+				else
+				{
+					<option value="@type.Name">@type.Name</option>
+				}
+
+			}
+		</select>
+		<span asp-validation-for="CDGDiseaseType" class="text-danger"></span>
+	</div>
+	<hr class="hr-2 bg-primary">
+	<div class="form-group text-center">
+		<input type="submit" value="Save" class="btn btn-primary" />
+	</div>
+</form>
+
+@section Scripts {
+	<partial name="_ValidationScriptsPartial" />
+}
+ 

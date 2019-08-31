@@ -1,0 +1,25 @@
+﻿@model IEnumerable<CDGBulgaria.Web.ViewModels.Fact.FactViewModel>
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+@{
+	ViewData["Title"] = "Info";
+	Layout = "~/Views/Shared/_Layout.cshtml";
+	var facts = Model.ToList();
+}
+
+
+@for(int i = 0; i < facts.Count();i++)
+{
+	<div class="text">
+		<h3 class="text-center text-info">CDG Fact #@(i+1)</h3>
+		<hr class="hr-2 bg-primary w-50">
+		<p>
+			@facts[i].Content
+
+			Download available in:
+
+			<a href="@facts[i].PdfFile">English</a>
+		</p>
+	</div>
+}
+

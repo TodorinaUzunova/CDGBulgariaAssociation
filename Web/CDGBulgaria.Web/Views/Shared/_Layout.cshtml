@@ -1,0 +1,253 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>@ViewData["Title"] - CDGBulgaria</title>
+
+	<environment include="Development">
+		<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
+	</environment>
+	<environment exclude="Development">
+		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+			  asp-fallback-href="~/lib/bootstrap/dist/css/bootstrap.min.css"
+			  asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute"
+			  crossorigin="anonymous"
+			  integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" />
+	</environment>
+	<link rel="stylesheet" href="~/css/bootstrap.min.css" />
+	<link rel="stylesheet" href="~/css/fontawesome.min.css" />
+	<link rel="stylesheet" href="~/css/jquery.datetimepicker.css" />
+	<link rel="stylesheet" href="~/css/site.css" />
+	<link rel="stylesheet" href="~/css/style.css" />
+	<script src="~/js/jquery-3.4.1.min.js"></script>
+	<script src="~/js/popper.min.js"></script>
+	<script src="~/js/bootstrap.min.js"></script>
+	<script src="~/js/jquery.datetimepicker.full.min.js"></script>
+	<script src="~/js/fontawesome.min.js"></script>
+	<script src="~/js/site.js"></script>
+</head>
+<body>
+	<header>
+
+		<nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white rounded border-bottom box-shadow mb-3">
+			<div class="container">
+				<div class="navbar-collapse collapse d-flex justify-content-between">
+					<ul class="navbar-nav">
+						<li class="nav-item">
+							<div class="dropdown show">
+								<a class="nav-link active dropdown-toggle  text-info" href="#"
+								   id="dropdownMenuLink"
+								   data-toggle="dropdown"
+								   aria-haspopup="true"
+								   aria-expanded="false">
+									ABOUT US
+								</a>
+								<div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+									<a class="dropdown-item text-info" href="/Home/About">What we do</a>
+									<a class="dropdown-item text-info" href="/Home/Help">Who we help</a>
+								</div>
+							</div>
+						</li>
+						<li class="nav-item">
+							<div class="dropdown show">
+								<a class="nav-link active dropdown-toggle text-info" href="#"
+								   id="dropdownMenuLink"
+								   data-toggle="dropdown"
+								   aria-haspopup="true"
+								   aria-expanded="false">
+									CDG - DISEASES
+								</a>
+								<div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+									<a class="dropdown-item text-info" href="/Diseases/About">What Is CDG-Disease?</a>
+									<a class="dropdown-item text-info" href="/Diseases/Info">CDG-TYPES</a>
+									<a class="dropdown-item text-danger" href="/Diseases/All">All CDG-Diseases</a>
+									@if (this.User.IsInRole("Admin"))
+									{
+										<a class="dropdown-item text-info" href="/Administration/Diseases/Type/Create"> CDGDiseaseType-Add</a>
+										<a class="dropdown-item text-info" asp-area="Administration" asp-controller="Diseases" asp-action="Create">CDGDisease-Add</a>
+									}
+								</div>
+							</div>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link text-danger" href="/Facts/All">Important Facts</a>
+							<button class="navbar-toggler alert-danger" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+									aria-expanded="false" aria-label="Toggle navigation">
+								<span class="navbar-toggler-icon"></span>
+							</button>
+						</li>
+						@if (!this.User.Identity.IsAuthenticated)
+						{<li>
+							<div class="container">
+								<button type="button" class="btn btn-danger" onclick="MustBeLoggedInFunction()">Ask a Question</button>
+							</div>
+						</li>
+						}
+						@if (this.User.Identity.IsAuthenticated)
+						{
+							<li class="nav-item">
+								<a class="nav-link text-info" href="/Questions/All">All Questions</a>
+								<button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+										aria-expanded="false" aria-label="Toggle navigation">
+									<span class="navbar-toggler-icon"></span>
+								</button>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link text-info" href="/Questions/Create">Ask a Question</a>
+								<button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+										aria-expanded="false" aria-label="Toggle navigation">
+									<span class="navbar-toggler-icon"></span>
+								</button>
+							</li>
+							<li class="nav-item">
+								<div class="dropdown show">
+									<a class="nav-link active dropdown-toggle text-info" href="#"
+									   id="dropdownMenuLink"
+									   data-toggle="dropdown"
+									   aria-haspopup="true"
+									   aria-expanded="false">
+										Events
+									</a>
+
+									<div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+										<a class="dropdown-item text-info" href="/Events/All">All Events</a>
+
+										@if (this.User.IsInRole("Admin"))
+										{
+											<a class="dropdown-item text-info" asp-area="Administration" asp-controller="Events" asp-action="Create">Create Event</a>
+										}
+									</div>
+								</div>
+							</li>
+						}
+
+
+						@if (this.User.IsInRole("Admin"))
+						{
+							<li class="nav-item">
+								<div class="dropdown show">
+									<a class="nav-link active dropdown-toggle text-info" href="#"
+									   id="dropdownMenuLink"
+									   data-toggle="dropdown"
+									   aria-haspopup="true"
+									   aria-expanded="false">
+										Facts
+									</a>
+									<div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+										<a class="dropdown-item text-info" asp-area="Administration" asp-controller="Facts" asp-action="Create">Create Fact</a>
+									</div>
+								</div>
+							</li>
+							<li class="nav-item">
+								<div class="dropdown show">
+									<a class="nav-link active dropdown-toggle text-info" href="#"
+									   id="dropdownMenuLink"
+									   data-toggle="dropdown"
+									   aria-haspopup="true"
+									   aria-expanded="false">
+										Answers
+									</a>
+									<div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+										<a class="dropdown-item text-info" asp-area="Administration" asp-controller="Answers" asp-action="Create">Create Answer</a>
+									</div>
+								</div>
+							</li>
+						}
+						@if (this.User.Identity.IsAuthenticated)
+						{
+							<li class="nav-item">
+								<div class="dropdown show">
+									<a class="nav-link active dropdown-toggle text-info" href="#"
+									   id="dropdownMenuLink"
+									   data-toggle="dropdown"
+									   aria-haspopup="true"
+									   aria-expanded="false">
+										Articles
+									</a>
+
+									<div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+										<a class="dropdown-item text-info" href="/Articles/All">All Articles</a>
+										<a class="dropdown-item text-info" href="/Articles/Create ">Create Article</a>
+									</div>
+								</div>
+							</li>
+						}
+					</ul>
+					<ul class="navbar-nav">
+						@if (!this.User.Identity.IsAuthenticated)
+						{
+							<li class="nav-item">
+								<a class="nav-link text-info" href="/Identity/Account/Login">Login</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link text-info" href="/Identity/Account/Register">Register</a>
+							</li>
+						}
+						else
+						{
+							<li class="nav-item text-info">
+								<a class="nav-link text-info" href="/Identity/Account/Logout">Logout</a>
+							</li>
+						}
+					</ul>
+				</div>
+			</div>
+		</nav>
+	</header>
+	<div class="container">
+		<hr class="hr-2 bg-primary mx-auto">
+		<div class="jumbotron jumbotron-fluid bg-primary">
+			<div class="container">
+				<h1 class="text-center  text-dark font-weight-bold">Welcome to</h1>
+				<h1 class="text-center text-dark  font-weight-bold">CDGBulgaria - The Bulgarian Association</h1>
+				<h3 class="text-center text-dark  font-weight-bold">For CDG Rare Group Diseases</h3>
+			</div>
+		</div>
+		<hr class="hr-2 bg-primary mx-auto">
+		<div class="d-flex justify-content-sm-between">
+			<div class="image">
+				<img class="img-thumbnail cdg-image" src="~/images/JackyChan.jpg" alt="cdg-disease" title="jackie-chan-helping-to-fight-pmm2-cdg" />
+				<p id="JackyChan-img" class="text-dark text-center">Jackie Chan Helping To Fight PMM2-CDG</p>
+			</div>
+			<div class="image">
+				<img class="img-thumbnail cdg-image" src="~/images/mysonCDG.jpg" alt="cdg-disease2" />
+			</div>
+			<div class="image">
+				<img class="img-thumbnail cdg-image" src="~/images/mydaughterCDG.jpg" alt="cdg-disease2" />
+			</div>
+
+			<div class="image">
+				<img class="img-thumbnail cdg-image" src="~/images/myfriendCDG.jpg" alt="cdg-disease2" />
+			</div>
+
+			<div class="image">
+				<img class="img-thumbnail cdg-image" src="~/images/needhelp.jpg" alt="cdg-disease3" />
+			</div>
+
+		</div>
+		<main role="main" class="pb-3">
+			@RenderBody()
+		</main>
+	</div>
+	<footer>
+		<div class="bg-white rounded">
+			<div class="text-black-50 p-2 text-center font-weight-bold">
+				&copy; CopyRight Sanity Web Design Studios 2019. All rights
+				reserved.
+			</div>
+		</div>
+	</footer>
+
+	<script src="~/js/site.js" asp-append-version="true"></script>
+
+	@RenderSection("Scripts", required: false)
+</body>
+</html>
+<script>
+	function MustBeLoggedInFunction() {
+		alert("YOU MUST BE LOOGGED IN TO ASK A QUESTION.");
+	}
+</script>
+
+

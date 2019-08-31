@@ -1,0 +1,43 @@
+﻿@page
+@model RegisterModel
+@{
+	ViewData["Title"] = "Register";
+}
+
+<h4 class="text-info text-center">Register</h4>
+<hr class="hr-2 bg-primary w-50">
+<form class="mx-auto width w-50" method="post">
+	<div asp-validation-summary="All" class="text-danger"></div>
+	<div class="form-group">
+		<label asp-for="Input.Username" class="text-info">Username</label>
+		<input type="text" class="form-control" id="username" placeholder="Username..." asp-for="Input.Username">
+		<span asp-validation-for="Input.Username" class="text-danger"></span>
+	</div>
+	<div class="form-group">
+		<label asp-for="Input.Password" class="text-info">Password</label>
+		<input type="password" class="form-control" id="password" placeholder="Password..." asp-for="Input.Password">
+		<span asp-validation-for="Input.Password" class="text-danger"></span>
+	</div>
+	<div class="form-group">
+		<label asp-for="Input.ConfirmPassword" class="text-info">Confirm Password</label>
+		<input type="password" class="form-control" id="confirmPassword" placeholder="Confirm password..." asp-for="Input.ConfirmPassword">
+		<span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
+	</div>
+	<div class="form-group">
+		<label asp-for="Input.Email" class="text-info">Email</label>
+		<input type="email" class="form-control" id="email" placeholder="Email..." asp-for="Input.Email">
+		<span asp-validation-for="Input.Email" class="text-danger"></span>
+	</div>
+	<div class="form-group">
+		<label asp-for="Input.FullName" class="text-info">FullName</label>
+		<input type="text" class="form-control" id="fullname" placeholder="FullName..." asp-for="Input.FullName">
+		<span asp-validation-for="Input.FullName" class="text-danger"></span>
+	</div>
+	<hr class="hr-2 bg-primary">
+	<div class="button-holder d-flex justify-content-center">
+		<button type="submit" class="btn btn-primary">Register</button>
+	</div>
+</form>
+		@section Scripts {
+	<partial name="_ValidationScriptsPartial" />
+}
